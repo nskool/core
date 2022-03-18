@@ -34,6 +34,7 @@
 #include "infer_stats.h"
 #include "triton/common/logging.h"
 #include "metrics.h"
+#include "metric_family.h"
 #include "model.h"
 #include "model_config.h"
 #include "model_config_utils.h"
@@ -2706,6 +2707,25 @@ TRITONSERVER_ServerInferAsync(
 
   RETURN_IF_STATUS_ERROR(status);
   return nullptr;  // Success
+}
+
+//
+// TRITONSERVER_MetricFamily
+//
+TRITONSERVER_Error*
+TRITONSERVER_MetricFamilyNew(
+    TRITONSERVER_MetricFamily** family, TRITONSERVER_MetricKind kind,
+    const char* name, const char* description)
+{
+#ifdef TRITON_ENABLE_METRICS
+  const auto& registry = ni::Metrics::GetRegistry();
+  *family = reinterpret_cast<TRITONSERVER_MetricFamily*>(
+      new ni::MetricFamily(kind, name, description, registry));
+  return nullptr;  // Success
+#else
+  return TRITONSERVER_ErrorNew(
+      TRITONSERVER_ERROR_UNSUPPORTED, "metrics not supported");
+#endif  // TRITON_ENABLE_METRICS
 }
 
 #ifdef __cplusplus
