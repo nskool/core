@@ -1972,20 +1972,20 @@ ModelRepositoryManager::Poll(
           status = ValidateModelIOConfig(model_config);
         }
       }
-      if (status.IsOk()) {
-        // Make sure the name of the model matches the name of the
-        // directory. This is a somewhat arbitrary requirement but seems
-        // like good practice to require it of the user. It also acts as a
-        // check to make sure we don't have two different models with the
-        // same name.
-        if (model_config.name() != child) {
-          status = Status(
-              Status::Code::INVALID_ARG,
-              "unexpected directory name '" + child + "' for model '" +
-                  model_config.name() +
-                  "', directory name must equal model name");
-        }
-      }
+      // if (status.IsOk()) {
+      //   // Make sure the name of the model matches the name of the
+      //   // directory. This is a somewhat arbitrary requirement but seems
+      //   // like good practice to require it of the user. It also acts as a
+      //   // check to make sure we don't have two different models with the
+      //   // same name.
+      //   if (model_config.name() != child) {
+      //     status = Status(
+      //         Status::Code::INVALID_ARG,
+      //         "unexpected directory name '" + child + "' for model '" +
+      //             model_config.name() +
+      //             "', directory name must equal model name");
+      //   }
+      // }
     }
 
     if (!status.IsOk()) {
