@@ -1783,7 +1783,7 @@ ModelRepositoryManager::Poll(
       // NSK logging
       std::cout << "Listing subdirs: " << std::endl;
       for (auto it=subdirs.begin(); it != subdirs.end(); ++it) {
-        std::cout << ' ' << *it;
+        LOG_ERROR << ' ' << *it;
       }
 
       if (!status.IsOk()) {
