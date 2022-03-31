@@ -1779,6 +1779,13 @@ ModelRepositoryManager::Poll(
     for (const auto& repository_path : repository_paths_) {
       std::set<std::string> subdirs;
       Status status = GetDirectorySubdirs(repository_path, &subdirs);
+      
+      // NSK logging
+      std::cout << "Listing subdirs: " << std::endl;
+      for (auto it=subdirs.begin(); it != subdirs.end(); ++it) {
+        std::cout << ' ' << *it;
+      }
+
       if (!status.IsOk()) {
         LOG_ERROR << "failed to poll model repository '" << repository_path
                   << "': " << status.Message();
@@ -1806,7 +1813,7 @@ ModelRepositoryManager::Poll(
       bool exists = false;
       for (const auto repository_path : repository_paths_) {
         bool exists_in_this_repo = false;
-        const auto full_path = JoinPath({repository_path, model.first});
+        const auto full_path = JoinPath({repository_path, model.first}); // This assumes full_path is repo_path/model_name
         Status status = FileExists(full_path, &exists_in_this_repo);
         if (!status.IsOk()) {
           LOG_ERROR << "failed to poll model repository '" << repository_path
