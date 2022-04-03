@@ -1814,6 +1814,17 @@ ModelRepositoryManager::Poll(
       for (const auto repository_path : repository_paths_) {
         bool exists_in_this_repo = false;
         const auto full_path = JoinPath({repository_path, model.first}); // This assumes full_path is repo_path/model_name
+
+        // Fetch subdir
+        std::set<std::string> subdirs;
+        Status status = GetDirectorySubdirs(repository_path, &subdirs);
+
+        std::cout << "Listing subdirs 2: " << std::endl;
+        for (auto it=subdirs.begin(); it != subdirs.end(); ++it) {
+            LOG_ERROR << ' ' << *it;
+        }
+
+
         Status status = FileExists(full_path, &exists_in_this_repo);
         if (!status.IsOk()) {
           LOG_ERROR << "failed to poll model repository '" << repository_path
