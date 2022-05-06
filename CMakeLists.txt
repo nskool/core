@@ -158,8 +158,8 @@ if(NOT TRITON_CORE_HEADERS_ONLY)
   option(TRITON_ENABLE_AZURE_STORAGE "Include Azure Storage Filesystem support in server" OFF)
 
   # Repo tags
-  set(TRITON_COMMON_REPO_TAG "main" CACHE STRING "Tag for triton-inference-server/common repo")
-  set(TRITON_THIRD_PARTY_REPO_TAG "main" CACHE STRING "Tag for triton-inference-server/third_party repo")
+  set(TRITON_COMMON_REPO_TAG "sagemaker_mme" CACHE STRING "Tag for triton-inference-server/common repo")
+  set(TRITON_THIRD_PARTY_REPO_TAG "sagemaker_mme" CACHE STRING "Tag for triton-inference-server/third_party repo")
 
   # Third-party location
   set(TRITON_THIRD_PARTY_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/third-party" CACHE STRING "Location of third-party build")
@@ -188,7 +188,7 @@ if(NOT TRITON_CORE_HEADERS_ONLY)
   include(FetchContent)
   FetchContent_Declare(
     repo-third-party
-    GIT_REPOSITORY https://github.com/triton-inference-server/third_party.git
+    GIT_REPOSITORY https://github.com/nskool/third_party.git
     GIT_TAG ${TRITON_THIRD_PARTY_REPO_TAG}
   )
   FetchContent_MakeAvailable(repo-third-party)
